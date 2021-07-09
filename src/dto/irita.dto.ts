@@ -17,9 +17,15 @@ export class TokensReqDto extends BaseReqDto {
   @ApiProperty({ required: false })
   key: string;
 
+//   static validate(value: any) {
+//     super.validate(value);
+//     if (value.chain && value.chain !== currentChain) {
+//       throw new ApiError(ErrorCodes.InvalidParameter, 'chain must be one of iris, cosmos and binance');
+//     }
+//   }
   static validate(value: any) {
     super.validate(value);
-    if (value.chain && value.chain !== currentChain) {
+    if (value.chain !== currentChain.iris && value.chain !== currentChain.cosmos && value.chain !== currentChain.binance) {
       throw new ApiError(ErrorCodes.InvalidParameter, 'chain must be one of iris, cosmos and binance');
     }
   }
