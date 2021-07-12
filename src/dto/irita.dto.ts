@@ -4,7 +4,7 @@ import {BaseReqDto, BaseResDto, PagingReqDto} from './base.dto';
 import {ApiError} from '../api/ApiResult';
 import {ErrorCodes} from '../api/ResultCodes';
 import {IBindTx} from '../types/tx.interface';
-import { currentChain } from 'src/constant';
+import { currentChain } from '../constant';
 
 /************************   request dto   ***************************/
 export class TokensReqDto extends BaseReqDto {
@@ -17,15 +17,9 @@ export class TokensReqDto extends BaseReqDto {
   @ApiProperty({ required: false })
   key: string;
 
-//   static validate(value: any) {
-//     super.validate(value);
-//     if (value.chain && value.chain !== currentChain) {
-//       throw new ApiError(ErrorCodes.InvalidParameter, 'chain must be one of iris, cosmos and binance');
-//     }
-//   }
   static validate(value: any) {
     super.validate(value);
-    if (value.chain !== currentChain.iris && value.chain !== currentChain.cosmos && value.chain !== currentChain.binance) {
+    if (value.chain && value.chain !== currentChain.cosmos && value.chain !== currentChain.iris && value.chain !== currentChain.binance) {
       throw new ApiError(ErrorCodes.InvalidParameter, 'chain must be one of iris, cosmos and binance');
     }
   }
